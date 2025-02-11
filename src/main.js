@@ -5,6 +5,6 @@ import App from './App.vue'
 
 const app = createApp(App)
 
-app.config.globalProperties.$addNumbers = 1
+app.config.globalProperties.$viteSvg = "./assets/vite.svg"
 
 app.mount('#app')

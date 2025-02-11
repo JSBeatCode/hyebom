@@ -1,6 +1,6 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
-import srcData from './data.json'
+import srcData from '@/data.json'
 import { ref, defineProps, onMounted } from 'vue';
 
 const refSrcData = ref(srcData);
@@ -13,18 +13,20 @@ onMounted(() => {
 
 <template>
   <div>
-    deploye-v2
+    deploye-v3
   </div>
   <div>
+    <!-- vite svg -->
     <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
+      <img src="./assets/vite.svg" class="logo" alt="Vite logo" />
     </a>
     <a href="https://vitejs.dev" target="_blank">
-      <img src="./vite.svg" class="logo" alt="Vite logo" />
+      <img src="@/assets/vite.svg" class="logo" alt="Vite logo" />
     </a>
     <a href="https://vitejs.dev" target="_blank">
       <img :src=refSrcData.viteSvg class="logo" alt="Vite logo" />
     </a>
+    <!-- vue svg -->
     <a href="https://vuejs.org/" target="_blank">
       <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
     </a>

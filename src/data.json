@@ -1,4 +1,4 @@
 {
-    "viteSvg": "/vite.svg",
+    "viteSvg": "src/assets/vite.svg",
     "assetsVueSvg": "/src/assets/vue.svg"
 }
