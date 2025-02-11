@@ -13,26 +13,31 @@ onMounted(() => {
 
 <template>
   <div>
-    deploye-v3
+    deploye-v4
   </div>
   <div>
     <!-- vite svg -->
+     <!-- working -->
     <a href="https://vitejs.dev" target="_blank">
       <img src="./assets/vite.svg" class="logo" alt="Vite logo" />
     </a>
-    <a href="https://vitejs.dev" target="_blank">
+     <!-- working -->
+    <!-- <a href="https://vitejs.dev" target="_blank">
       <img src="@/assets/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vitejs.dev" target="_blank">
+    </a> -->
+     <!-- not working -->
+    <!-- <a href="https://vitejs.dev" target="_blank">
       <img :src=refSrcData.viteSvg class="logo" alt="Vite logo" />
-    </a>
+    </a> -->
     <!-- vue svg -->
+     <!-- working -->
     <a href="https://vuejs.org/" target="_blank">
       <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
     </a>
-    <a href="https://vuejs.org/" target="_blank">
+     <!-- not working -->
+    <!-- <a href="https://vuejs.org/" target="_blank">
       <img :src=refSrcData.assetsVueSvg class="logo vue" alt="Vue logo" />
-    </a>
+    </a> -->
   </div>
   <HelloWorld msg="Vite + Vue" />
 </template>

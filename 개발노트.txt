@@ -1,0 +1,40 @@
+--기획 할 일
+네이버 톡톡
+네이버 카카오 로그인
+이미지 텍스트 화
+카카오 채널 링크
+footer 나열
+모달창
+후기 iosope
+사업영역 page
+수수료 
+소개 carousal
+블로그 영역 재고
+anchor 기능 -> scroll 기능으로 대처
+mail sender
+
+-- front 기술 할일 
+package.json 
+	vite에서 npm run build 할때 build 스크립트 방법
+	npm-run-all 로 build와 deploy 둘다
+vite vuejs github page 배포
+vue components
+vuejs bootstarp
+vue router
+vite api proxy
+json data server
+index.html 해서 nodejs express 테스트
+aws lightsail에 배포
+
+-- back 기술 할일
+mail message queue
+영상 cdn
+lazyloading
+ddos 방어
+traffic control for transfer capacity
+jenkins
+pm2 ecosystem.config.js
+
+
+https://themewagon.com/theme-tag/business-corporate/
+https://preview.colorlib.com/#glint
