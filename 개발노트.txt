@@ -12,6 +12,8 @@ footer 나열
 블로그 영역 재고
 anchor 기능 -> scroll 기능으로 대처
 mail sender
+carousel
+id, class 명 정리
 
 -- front 기술 할일 
 package.json 

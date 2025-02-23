@@ -1,0 +1,14 @@
+1. npm create vite [폴더명]
+2. github에 [폴더명] 에 맞게 repository 생성 후 commit push
+2. svg 파일들 모두 assets 폴더 밑으로
+3. '/assets/...' 경로를 './assets/...'로
+4. npm i gh_pages nodemon --save-dev
+5. package.json 추가
+    "homepage": "https://jsbeatcode.github.io/hyebom",
+    "script": {
+        "deploy": "gh-pages -d dist",
+    }
+6. vite.config.js 코딩
+7. bootstrap 설치
+
+
