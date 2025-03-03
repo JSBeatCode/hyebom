@@ -9,6 +9,13 @@
         "deploy": "gh-pages -d dist",
     }
 6. vite.config.js 코딩
-7. bootstrap 설치
-
+7. bootstrap 설치: index.html에 <link>
+8. 코딩 
+9. npm run dev
+10. 테스트
+11. npm run build
+12. dist/index.html, dist/index*.js 에 "/assets/ -> "./assets/ 으로 고치기
+13. dist/assets/vendors를 src/assets/vendors에서 가져와 붙히기
+13. git pages package.json에 정의
+14. npm run deploy
 
