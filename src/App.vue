@@ -16,7 +16,7 @@
 
       <Services /> 
       
-      <Team />
+      <Team @emitOpenModal="onClickShowModal"/>
       
       <Clients />
 
@@ -57,7 +57,6 @@
 </div>
 </template>
 <script setup>
-// import HelloWorld from './components/HelloWorld.vue'
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import Hero from '@/components/main/Hero.vue'
@@ -70,8 +69,9 @@ import Price from '@/components/main/Price.vue'
 import Testimonials from '@/components/main/Testimonials.vue'
 import Portfolio from '@/components/main/Portfolio.vue'
 import Contact from '@/components/main/Contact.vue'
+import Feedback from '@/components/main/Feedback.vue'
 import srcData from '@/data.json'
-import { ref, defineProps, onMounted, getCurrentInstance } from 'vue';
+import { ref, defineProps, onMounted, getCurrentInstance, provide } from 'vue';
 
 // const refSrcData = ref(srcData);
 const state = ref({
@@ -82,10 +82,6 @@ const state = ref({
     modalHeader: null,
     modalBody: null,
     overlay: null,
-    wrapper: null,
-    slides: null,
-    bullets: null,
-    index: 0,
     intervalVal: null,
     menuList: [
       { url: '/', name: '홈'},
@@ -193,43 +189,11 @@ const globalVar = instance?.appContext.config.globalProperties;
 
     document.body.style.overflow = "";
   }
+
+  provide('provideOpenModal', onClickShowModal)
+
   /**** modal end *****/
 
-  /**** carousel start ****/
-  function startMoveCarousel() {
-    state.value.intervalVal = setInterval(() => {
-      moveCarousel();  
-    }, 5000)
-  }  
- 
-  function onClickBullet (idx) {
-    clearInterval(state.value.intervalVal);
-    state.value.index = parseInt(idx)
-    updateCarousel()
-    startMoveCarousel();
-
-  }
-
-
-  function moveCarousel () {
-    state.value.index = (state.value.index === state.value.slides.length - 1) ? 0 : state.value.index + 1;
-    console.log('jsdno0 debug1-1 ', state.value.wrapper);
-    state.value.wrapper.style.transform = `translateX(-${state.value.index * 100}%)`;
-    updatePagination();
-  }
-
-  function updateCarousel () {
-    console.log('jsdno0 debug1-2 ', state.value.wrapper);
-    state.value.wrapper.style.transform = `translateX(-${state.value.index * 100}%)`;
-    updatePagination();
-  }
-
-  function updatePagination () {
-    state.value.bullets.forEach(bullet => bullet.classList.remove('active'))
-    state.value.bullets[state.value.index].classList.add('active')
-  }
-
-  /**** carousel end ****/
 
 /********* initializing script start **************/
 
@@ -319,10 +283,7 @@ onMounted(() => {
       modal: document.getElementById('modal'),
       modalHeader: document.querySelector('.modal-header'),
       modalBody: document.querySelector('.modal-body'),
-      overlay: document.getElementById('overlay'),
-      wrapper: document.querySelector('.swiper-wrapper'),
-      slides: document.querySelectorAll('.swiper-slide'),
-      bullets: document.querySelectorAll('.bullet')
+      overlay: document.getElementById('overlay')
     }
 
     state.value = Object.assign({}, state.value, elements);
@@ -480,7 +441,6 @@ onMounted(() => {
 
   document.addEventListener('scroll', navmenuScrollspy(navmenulinks));
 
-  startMoveCarousel();
 
 });
 

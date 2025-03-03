@@ -93,7 +93,58 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
 
+const state = ref({
+    wrapper: null,
+    slides: null,
+    bullets: null,
+    pageIndex: 0
+})
+
+onMounted(() => {
+    state.value.wrapper = document.querySelector('.swiper-wrapper')
+    state.value.slides = document.querySelectorAll('.swiper-slide')
+    state.value.bullets = document.querySelectorAll('.bullet')
+
+    startMoveCarousel();
+})
+
+  /**** carousel start ****/
+  function startMoveCarousel() {
+    state.value.intervalVal = setInterval(() => {
+      moveCarousel();  
+    }, 5000)
+  }  
+ 
+  function onClickBullet (idx) {
+    clearInterval(state.value.intervalVal);
+    state.value.pageIndex = parseInt(idx)
+    updateCarousel()
+    startMoveCarousel();
+
+  }
+
+
+  function moveCarousel () {
+    state.value.pageIndex = (state.value.pageIndex === state.value.slides.length - 1) ? 0 : state.value.pageIndex + 1;
+    console.log('jsdno0 debug1-1 ', state.value.wrapper);
+    state.value.wrapper.style.transform = `translateX(-${state.value.pageIndex * 100}%)`;
+    updatePagination();
+  }
+
+  function updateCarousel () {
+    console.log('jsdno0 debug1-2 ', state.value.wrapper);
+    state.value.wrapper.style.transform = `translateX(-${state.value.pageIndex * 100}%)`;
+    updatePagination();
+  }
+
+  function updatePagination () {
+    state.value.bullets.forEach(bullet => bullet.classList.remove('active'))
+    state.value.bullets[state.value.pageIndex].classList.add('active')
+  }
+
+  /**** carousel end ****/
 </script>
 
 <style lang="scss" scoped>

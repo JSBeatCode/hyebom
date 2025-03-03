@@ -25,6 +25,8 @@ vue lazyloading
 vite api proxy
 json data server
 aws lightsail에 배포
+
+
 index.html 해서 nodejs express 테스트
 부드러운 nav: https://www.w3schools.com/bootstrap5/bootstrap_navbar.php
 secition nav: https://www.w3schools.com/bootstrap5/bootstrap_navbar.php
@@ -43,6 +45,8 @@ jenkins
 pm2 ecosystem.config.js
 pay
 certi
+rabbitmq
+redis
 
 
 https://themewagon.com/theme-tag/business-corporate/

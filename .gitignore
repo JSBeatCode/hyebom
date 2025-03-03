@@ -21,6 +21,5 @@ node_modules
 *.sln
 *.sw?
 
-account-home
-/account-home
-/account-home/*
+
+*_bu_*
