@@ -57,20 +57,20 @@
 </div>
 </template>
 <script setup>
-import Header from '@/components/Header.vue'
-import Footer from '@/components/Footer.vue'
-import Hero from '@/components/main/Hero.vue'
-import About from '@/components/main/About.vue'
-import Stats from '@/components/main/Stats.vue'
-import Services from '@/components/main/Services.vue'
-import Team from '@/components/main/Team.vue'
-import Clients from '@/components/main/Clients.vue'
-import Price from '@/components/main/Price.vue'
-import Testimonials from '@/components/main/Testimonials.vue'
-import Portfolio from '@/components/main/Portfolio.vue'
-import Contact from '@/components/main/Contact.vue'
-import Feedback from '@/components/main/Feedback.vue'
-import srcData from '@/data.json'
+import Header from '@/src/components/Header.vue'
+import Footer from '@/src/components/Footer.vue'
+import Hero from '@/src/components/main/Hero.vue'
+import About from '@/src/components/main/About.vue'
+import Stats from '@/src/components/main/Stats.vue'
+import Services from '@/src/components/main/Services.vue'
+import Team from '@/src/components/main/Team.vue'
+import Clients from '@/src/components/main/Clients.vue'
+import Price from '@/src/components/main/Price.vue'
+import Testimonials from '@/src/components/main/Testimonials.vue'
+import Portfolio from '@/src/components/main/Portfolio.vue'
+import Contact from '@/src/components/main/Contact.vue'
+import Feedback from '@/src/components/main/Feedback.vue'
+import srcData from '@/src/data.json'
 import { ref, defineProps, onMounted, getCurrentInstance, provide } from 'vue';
 
 // const refSrcData = ref(srcData);
