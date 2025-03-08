@@ -9,6 +9,7 @@ const app = express();
 // 사용할 포트 번호 설정
 const port = 3011;
 
+console.log(process.argv);
 // 정적 파일 제공 (dist 디렉터리 내의 정적 파일을 클라이언트에게 제공)
 // 클라이언트가 요청하는 정적 파일(css, js, 이미지 등)이 'dist' 폴더에 있다면 해당 파일을 제공함
 app.use(express.static(path.join(__dirname, 'dist')));
@@ -16,6 +17,12 @@ app.use(express.static(path.join(__dirname, 'dist')));
 // 기본 루트('/') 경로 요청 처리
 // 사용자가 웹사이트의 루트 경로(http://localhost:3000/)에 접속하면 'dist' 디렉터리의 index.html을 응답으로 보냄
 app.get('/', (req, res) => {
+  console.log('welcome!', process.pid);
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
+app.get('/test', (req, res) => {
+  console.log('welcome!', process.pid);
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 

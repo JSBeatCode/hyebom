@@ -7,6 +7,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build-all": "npm-run-all build-vite build-vendor",
+    "build-vite": "vite build",
+    "build-vendor": "node build.cjs",
     "preview": "vite preview",
     "deploy": "gh-pages -d dist",
     "all": ""
@@ -15,6 +18,7 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "hyebom": "file:",
+    "npm-run-all": "^4.1.5",
     "vue": "^3.3.11"
   },
   "devDependencies": {
