@@ -2,15 +2,11 @@
 
   <div class="divBody index-page">
     <Header :menuList="state.menuList" />
-
-    <main class="main">
-      <!-- <div id="section1"> -->
+    <router-view />
+    <!-- <main class="main">
         <Hero />
-      <!-- </div> -->
-
-      <!-- <div id="section1"> -->
+        
         <About />
-      <!-- </div> -->
 
       <Stats />
 
@@ -28,9 +24,9 @@
       
       <Portfolio />
 
-      <Contact />
+      <Contact /> 
     </main>
-
+    -->
     <Footer :menuList="state.menuList" />
 
     <!-- Scroll Top -->
@@ -59,21 +55,22 @@
 <script setup>
 import Header from '@/src/components/Header.vue'
 import Footer from '@/src/components/Footer.vue'
-import Hero from '@/src/components/main/Hero.vue'
-import About from '@/src/components/main/About.vue'
-import Stats from '@/src/components/main/Stats.vue'
-import Services from '@/src/components/main/Services.vue'
-import Team from '@/src/components/main/Team.vue'
-import Clients from '@/src/components/main/Clients.vue'
-import Price from '@/src/components/main/Price.vue'
-import Testimonials from '@/src/components/main/Testimonials.vue'
-import Portfolio from '@/src/components/main/Portfolio.vue'
-import Contact from '@/src/components/main/Contact.vue'
-import Feedback from '@/src/components/main/Feedback.vue'
+// import Main from '@/src/views/Main.vue';
+// import Hero from '@/src/components/main/Hero.vue'
+// import About from '@/src/components/main/About.vue'
+// import Stats from '@/src/components/main/Stats.vue'
+// import Services from '@/src/components/main/Services.vue'
+// import Team from '@/src/components/main/Team.vue'
+// import Clients from '@/src/components/main/Clients.vue'
+// import Price from '@/src/components/main/Price.vue'
+// import Testimonials from '@/src/components/main/Testimonials.vue'
+// import Portfolio from '@/src/components/main/Portfolio.vue'
+// import Contact from '@/src/components/main/Contact.vue'
+// import Feedback from '@/src/components/main/Feedback.vue'
 import srcData from '@/src/data.json'
 import { ref, defineProps, onMounted, getCurrentInstance, provide } from 'vue';
 
-// const refSrcData = ref(srcData);
+const refSrcData = ref(srcData);
 const state = ref({
     // const openModalButton = document.getElementById('openModal');
     mobileNavToggleBtn: null,
