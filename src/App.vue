@@ -53,8 +53,8 @@
 </div>
 </template>
 <script setup>
-import Header from '@/src/components/Header.vue'
-import Footer from '@/src/components/Footer.vue'
+import Header from '@/src/views/Header.vue'
+import Footer from '@/src/views/Footer.vue'
 // import Main from '@/src/views/Main.vue';
 // import Hero from '@/src/components/main/Hero.vue'
 // import About from '@/src/components/main/About.vue'
