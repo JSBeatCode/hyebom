@@ -2,31 +2,40 @@
 
   <div class="divBody index-page">
     <Header :menuList="state.menuList" />
+    <!-- <header id="header" class="header d-flex align-items-center fixed-top">
+      <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+        <a href="index.html" class="logo d-flex align-items-center me-auto">
+          <h1 class="sitename">HYEBOM</h1>
+        </a>
+
+        <nav id="navmenu" class="navmenu">
+          <ul>
+              <li :class="{'dropdown': (menu.dropDown && menu.dropDown.length > 0)}"
+                v-for="menu in state.menuList" :key="menu.url">
+                <a v-if="menu.dropDown === null || menu.dropDown === undefined || menu.dropDown === ''"
+                  :href="menu.url" :class="menu.url === '#hero' ? 'active' : ''">
+                  {{ menu.name }}
+                </a>
+                <a v-else :href="menu.url" :class="menu.url === '#hero' ? 'active' : ''">
+                  <span>{{ menu.name }}</span>
+                  <i class="bi bi-chevron-down toggle-dropdown"></i>
+                  <ul>
+                    <li v-for="drop in menu.dropDown" :key="drop.url">
+                      <a href="#">
+                        {{ drop.name }}
+                      </a>
+                    </li>
+                  </ul>
+                </a>
+              </li> 
+          
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+      </div>
+    </header> -->
     <router-view />
-    <!-- <main class="main">
-        <Hero />
-        
-        <About />
-
-      <Stats />
-
-      <Services /> 
-      
-      <Team @emitOpenModal="onClickShowModal"/>
-      
-      <Clients />
-
-      <Price />
-
-      <Testimonials />
-      
-      <Feedback />
-      
-      <Portfolio />
-
-      <Contact /> 
-    </main>
-    -->
     <Footer :menuList="state.menuList" />
 
     <!-- Scroll Top -->
@@ -68,9 +77,10 @@ import Footer from '@/src/views/Footer.vue'
 // import Contact from '@/src/components/main/Contact.vue'
 // import Feedback from '@/src/components/main/Feedback.vue'
 import srcData from '@/src/data.json'
-import { ref, defineProps, onMounted, getCurrentInstance, provide } from 'vue';
+import { ref, defineProps, onMounted, getCurrentInstance, provide, onUpdated } from 'vue';
 
 const refSrcData = ref(srcData);
+
 const state = ref({
     // const openModalButton = document.getElementById('openModal');
     mobileNavToggleBtn: null,
@@ -80,62 +90,8 @@ const state = ref({
     modalBody: null,
     overlay: null,
     intervalVal: null,
-    menuList: [
-      { url: '/', name: '홈'},
-      { url: "#about", name: "혜봄소개" },
-      { 
-        url: "#services", 
-        name: "주요업무", 
-        dropDown: [
-          { url: "service-details.html", name: "사업자 재무상담" },
-          { url: "service-details.html#service-details-2", name: "재산 & 세무조사" },
-        ] 
-      },
-      { url: "#team", name: "세무사소개" },
-      { 
-        url: "#price", 
-        name: "수수료안내",
-        dropDown: [
-          { url: "price-details.html", name: "사업자 세무회계" },
-          { url: "price-details.html#price-2", name: "재산제세" }
-        ]
-      },
-      { url: "#testimonials", name: "수임후기" },
-      { url: "#blog", name: "블로그" },
-      { url: "#contact", name: "오시는길" }
-    ],
-    teamData: [
-      {
-        id: 1,
-        title:'김혜지 대표세무사',
-        carrier: `**세무업무 총괄**  
-          · 사업자기장, 양도세·상속세·증여세 등 재산제세  
-          · 개인·기업 세무조사, 기업자문, 국제조세 전문  
-
-        **前. 세무법인 석성**  
-          · 사업자기장(부가가치세, 원천세, 종합소득세, 법인세)  
-
-        **前. 광교세무법인**  
-          · 국내 대형법인 자문, 법인세 산출, 경정청구  
-
-        **前. 삼영회계법인**  
-          · 양도·상속·증여·종합부동산세 등 재산제세  
-
-        **前. 택스원세무법인**  
-          · 체납세금 면책 관련 고충청구
-        `
-      },
-      {
-        id: 2,
-        title: '다니엘 주요경력',
-        carrier: '주요경력'
-      },
-      {
-        id: 3,
-        title: '모아나 주요경력',
-        carrier: '주요경력'
-      }
-    ]
+    menuList: [],
+    teamData: []
   });
   
 const instance = getCurrentInstance();
@@ -272,8 +228,14 @@ function navmenuScrollspy(navmenulinks) {
   })
 }
 
+onUpdated(() => {
+  console.log('jsdno0 debug3-1 updated');
+})
 /********* initializing script end **************/
 onMounted(() => {
+  state.value.teamData = refSrcData.value.teamData;
+  state.value.menuList = refSrcData.value.menuList;
+
   let appTimeout = setTimeout(() => {
     const elements = {
       closeModalButton: document.getElementById('closeModal'),
@@ -310,6 +272,7 @@ onMounted(() => {
    * Hide mobile nav on same-page/hash links
    */
   document.querySelectorAll('#navmenu a').forEach(navmenu => {
+    console.log('jsdno0 debug2-1 navmenu', navmenu);
     navmenu.addEventListener('click', () => {
       if (document.querySelector('.mobile-nav-active')) {
         mobileNavToogle();
@@ -321,6 +284,7 @@ onMounted(() => {
    * Toggle mobile nav dropdowns
    */
   document.querySelectorAll('.navmenu .toggle-dropdown').forEach(navmenu => {
+    console.log('jsdno0 debug1-1 navmenu', navmenu);
     navmenu.addEventListener('click', function (e) {
       e.preventDefault();
       this.parentNode.classList.toggle('active');

@@ -48,12 +48,25 @@ async function copyDirectory(source, destination) {
     }
 }
 
+async function folderExists(folderPath) {
+    try {
+        await fs.access(folderPath);
+        console.log('there is yes path: ', folderPath);
+        return true;
+    } catch {
+        console.log('there is no path: ', folderPath);
+        return false;
+    }
+}
+
 async function copyAssets() {
     try {
-        await fs.access(dest)
+        // await fs.access(dest)
     
-        await fs.rm(dest, { recursive: true, force: true })
-        console.log(`Deleting completed ${dest}`);
+        if (await folderExists(dest)) {
+            await fs.rm(dest, { recursive: true, force: true })
+            console.log(`Deleting completed ${dest}`);
+        }
     
 
     } catch (error) {

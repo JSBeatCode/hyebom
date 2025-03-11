@@ -128,13 +128,11 @@ onMounted(() => {
 
   function moveCarousel () {
     state.value.pageIndex = (state.value.pageIndex === state.value.slides.length - 1) ? 0 : state.value.pageIndex + 1;
-    console.log('jsdno0 debug1-1 ', state.value.wrapper);
     state.value.wrapper.style.transform = `translateX(-${state.value.pageIndex * 100}%)`;
     updatePagination();
   }
 
   function updateCarousel () {
-    console.log('jsdno0 debug1-2 ', state.value.wrapper);
     state.value.wrapper.style.transform = `translateX(-${state.value.pageIndex * 100}%)`;
     updatePagination();
   }
