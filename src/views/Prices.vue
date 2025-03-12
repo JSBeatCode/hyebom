@@ -22,17 +22,17 @@
 
     <div class="row gy-4">
 
-      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+      <div class="col-lg-2" data-aos="fade-up" data-aos-delay="100">
         <!-- <h4>투명하고 합리적인 수수료</h4> -->
         <!-- <p>혜봄세무회계는 투명하고 합리적인 수수료로 최적의 세무·회계 서비스를 제공합니다. 상세한 요금은 상담 후 안내해 드립니다.</p> -->
         <div class="price-list">
-          <span id="price-button-1" onclick="showPrice(1)" class="active">사업자 세무회계</span>
-          <span id="price-button-2" onclick="showPrice(2)">재산제세</span>
+          <span id="price-button-1" @click="showPrice(1)" class="active">사업자 세무회계</span>
+          <span id="price-button-2" @click="showPrice(2)">재산제세</span>
         </div>
         
       </div>
 
-      <div id="price-1" class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
+      <div id="price-1" class="col-lg-10" data-aos="fade-up" data-aos-delay="200">
         <img src="@/assets/img/services-1.jpg" alt="" class="img-fluid services-img" style="height: 50%">
         <h3>사업자 세무회계</h3>
         <!-- <p>
@@ -90,7 +90,58 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
+onMounted(() => {
+      console.log('on load');
+      console.log(window.location.href);
+      if (String(window.location.href).lastIndexOf('#') > -1) {
+        const checkParams = String(window.location.href).substring(String(window.location.href).lastIndexOf('#') + 1) 
+        console.log('checkParams: ', checkParams);
+        if (checkParams && checkParams.lastIndexOf('-') > -1) {
+          
+          const svcNum = Number(checkParams.substring(checkParams.lastIndexOf('-') + 1))
+          console.log('svcNum', svcNum);
+          showPrice(svcNum)
+        }
+      }
 
+      
+    })
+    function showPrice(svcNum) {
+      // const serviceElements = document.querySelectorAll(`div[id^="service-"]`);
+      const priceElements = Array.from(document.querySelectorAll(`div[id^="price-"]`))
+      const priceButtonElements = Array.from(document.querySelectorAll(`span[id^="price-button-"]`))
+      console.log('priceButtonElements: ', priceButtonElements);
+      console.log('svcNum: ', svcNum);
+      if (priceButtonElements.length === priceElements.length) {
+        for (let i = 0; i < priceElements.length; i++) {
+          if (priceElements[i].id === ('price-' + svcNum)) {
+            priceElements[i].classList.remove('hiddenDisplay');
+            // priceElements[i].classList.add('fade-in');
+            /*
+            priceElements[i].style.transform = 'translateX(-40%)';
+            priceElements[i].style.transition = 'transition: all 0.5s;';
+            priceElements[i].style.transform = 'translateX(0%)';
+            priceElements[i].style.display = '';
+            */
+          } else {
+            // priceElements[i].classList.remove('fade-in');
+            priceElements[i].classList.add('hiddenDisplay');
+            /*
+            priceElements[i].style.display = 'none'
+            */
+          }
+          if (priceButtonElements[i].id === ('price-button-' + svcNum)) {
+            priceButtonElements[i].classList.remove('active');
+            priceButtonElements[i].classList.add('active');
+          } else {
+            priceButtonElements[i].classList.remove('active');
+          }
+        }
+      }
+      
+      
+    }
 </script>
 
 <style lang="scss" scoped>

@@ -1301,6 +1301,19 @@ section,
   padding-bottom: 10px;
 }
 
+.features .tab-pane ul li .click-detail {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.features .tab-pane ul li .click-detail:hover {
+  color: color-mix(in srgb, var(--accent-color), transparent 25%);
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .features .tab-pane ul i {
   font-size: 20px;
   padding-right: 4px;

@@ -3,7 +3,7 @@
 <header id="header" class="header d-flex align-items-center fixed-top">
       <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-        <a href="/" class="logo d-flex align-items-center me-auto">
+        <a href="#" @click.prevent="onClickRouting" class="logo d-flex align-items-center me-auto">
           <!-- Uncomment the line below if you also wish to use an image logo -->
           <!-- <img src="./assets/img/logo.png" alt=""> -->
           <h1 class="sitename">HYEBOM</h1>
@@ -66,6 +66,9 @@
 
 <script setup>
 import { defineProps, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const props = defineProps({
   menuList: {
@@ -73,6 +76,10 @@ const props = defineProps({
   }
 })
 
+function onClickRouting (event) {
+  event.preventDefault();
+  router.push('/')
+}
 // /**
 //  * Mobile nav toggle
 //  */

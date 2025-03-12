@@ -3,27 +3,27 @@
     "assetsVueSvg": "/src/assets/vue.svg",
     "menuList": [
         { "url": "/", "name": "홈" },
-        { "url": "#about", "name": "혜봄소개" },
+        { "url": "/#about", "name": "혜봄소개" },
         { 
-          "url": "#services", 
+          "url": "/#services", 
           "name": "주요업무", 
           "dropDown": [
               { "url": "/services", "name": "사업자 재무상담" },
               { "url": "/services#service-details-2", "name": "재산 & 세무조사" }
           ] 
         },
-        { "url": "#team", "name": "세무사소개" },
+        { "url": "/#team", "name": "세무사소개" },
         { 
-          "url": "#price", 
+          "url": "/#price", 
           "name": "수수료안내",
           "dropDown": [
               { "url": "/prices", "name": "사업자 세무회계" },
               { "url": "/prices#price-2", "name": "재산제세" }
           ]
         },
-        { "url": "#testimonials", "name": "수임후기" },
-        { "url": "#blog", "name": "블로그" },
-        { "url": "#contact", "name": "오시는길" }
+        { "url": "/#testimonials", "name": "수임후기" },
+        { "url": "/#blog", "name": "블로그" },
+        { "url": "/#contact", "name": "오시는길" }
     ],
     "teamData": [
         {

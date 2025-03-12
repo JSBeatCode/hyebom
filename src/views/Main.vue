@@ -3,7 +3,7 @@
         <Hero />
         <About />
         <Stats />
-        <Services />
+        <Service />
         <Team @emitOpenModal="onClickShowModal" />
         <Clients />
         <Price />
@@ -19,7 +19,7 @@ import { ref, provide, inject } from 'vue'
 import Hero from '@/src/components/main/Hero.vue'
 import About from '@/src/components/main/About.vue'
 import Stats from '@/src/components/main/Stats.vue'
-import Services from '@/src/components/main/Services.vue'
+import Service from '@/src/components/main/Service.vue'
 import Team from '@/src/components/main/Team.vue'
 import Clients from '@/src/components/main/Clients.vue'
 import Price from '@/src/components/main/Price.vue'

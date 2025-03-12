@@ -13,7 +13,9 @@
         <div class="row gy-5">
 
             <div class="col-xl-6 col-md-6" data-aos="zoom-in" data-aos-delay="200">
-            <a href="service-details.html#service-details-1">
+            <!-- <a href="service-details.html#service-details-1"> -->
+            <!-- <span @click.prevent="onClickRouting()"> -->
+            <span @click.prevent="onClickRouting" style="cursor: pointer;">
                 <div class="service-item">
                 <div class="img">
                     <img src="@/assets/img/services-1.jpg" class="img-fluid" alt="">
@@ -28,11 +30,14 @@
                     <p>사업 구조에 맞춘 최적의 세무 전략을 제시하고, 법적 리스크를 최소화하며, 효율적인 재무 관리를 돕습니다.</p>
                 </div>
                 </div>
-            </a>
+            </span>
+            <!-- </a> -->
             </div><!-- End Service Item -->
 
             <div class="col-xl-6 col-md-6" data-aos="zoom-in" data-aos-delay="300">
-            <a href="service-details.html#service-details-2">
+            <!-- <a href="service-details.html#service-details-2"> -->
+            <!-- <span @click.prevent="onClickRouting('#service-details-2')" style="cursor: pointer;"> -->
+            <span @click.prevent="onClickRouting" style="cursor: pointer;">
                 <div class="service-item">
                 <div class="img">
                     <img src="@/assets/img/services-2.jpg" class="img-fluid" alt="">
@@ -47,7 +52,8 @@
                     <p>세무조사 과정에서 발생할 수 있는 불필요한 리스크를 사전 예방하고, 발생한 문제는 신속하게 해결하여 고객님의 재정적 안정성을 보장합니다.</p>
                 </div>
                 </div>
-            </a>
+            </span>
+            <!-- </a> -->
             </div><!-- End Service Item -->
         </div>
         </div>
@@ -57,6 +63,21 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+// function onClickRouting (urlParam) {
+function onClickRouting (event) {
+
+    event.preventDefault()
+
+    // let url = '/services'
+    // if (urlParam) {
+    //     url = '/services' + urlParam
+    // }
+    router.push('/services')
+}
 
 </script>
 

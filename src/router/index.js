@@ -11,6 +11,11 @@ const routes = [
     {
         path: '/services',
         component: Services
+        // beforeRouteEnter(to, from, next) {
+        //     next(() => {
+        //       window.scrollTo(0, 0);
+        //     });
+        // }
     },
     {
         path: '/prices',
@@ -20,7 +25,15 @@ const routes = [
 
 const router = createRouter({
     history: createWebHistory(),
-    routes
+    routes,
+    scrollBehavior(to, from, savedPosition) {
+        console.log('savedPosition: ', savedPosition);
+        if (savedPosition) {
+            return savedPosition
+        } else {
+            return { top: 0 }
+        }
+    }
 })
 
 export default router

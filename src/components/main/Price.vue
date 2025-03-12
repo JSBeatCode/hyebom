@@ -1,6 +1,6 @@
 <template>
-      <!-- Price Section -->
-      <section id="price" class="features section">
+<!-- Price Section -->
+<section id="price" class="features section">
 
 <!-- Section Title -->
 <div class="container section-title" data-aos="fade-up">
@@ -42,7 +42,10 @@
             </li>
             <li><i class="bi bi-check2-all"></i> <span>서비스 내용: 사업 개요 파악 및 초기 세무 분석</span></li>
             <li><i class="bi bi-check2-all"></i> <span>수수료: 55,000원 (1시간 기준)</span></li>
-            <li><i class="bi bi-check2-all"></i> <a href="price-details.html">자세히 보기</a></li>
+            <li><i class="bi bi-check2-all"></i> 
+              <!-- <a href="price-details.html">자세히 보기</a> -->
+               <span class="click-detail" @click.prevent="onClickRouting">자세히 보기</span>
+            </li>
           </ul>
         </div>
         <div class="col-lg-6 order-1 order-lg-2 text-center">
@@ -62,7 +65,10 @@
             <li><i class="bi bi-check2-all"></i> <span>기본 재산 상담</span></li>
             <li><i class="bi bi-check2-all"></i> <span>서비스 내용: 고객님의 재산 현황 분석, 자산 분포 파악 및 기본 세무 점검</span></li>
             <li><i class="bi bi-check2-all"></i> <span>수수료: 110,000원 (1시간 기준)</span></li>
-            <li><i class="bi bi-check2-all"></i> <a href="price-details.html#price-2">자세히 보기</a></li>
+            <li><i class="bi bi-check2-all"></i>
+              <!-- <a href="price-details.html#price-2">자세히 보기</a> -->
+              <span class="click-detail" @click.prevent="onClickRouting">자세히 보기</span>
+            </li>
           </ul>
         </div>
         <div class="col-lg-6 order-1 order-lg-2 text-center">
@@ -78,7 +84,16 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
+
+function onClickRouting (event) {
+  event.preventDefault()
+  router.push('/prices')
+
+
+}
 </script>
 
 <style lang="scss" scoped>
