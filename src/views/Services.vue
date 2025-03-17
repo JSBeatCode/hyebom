@@ -47,28 +47,23 @@
       </div>
 
       <div class="col-lg-8">
-        <div class="portfolio-details-slider swiper init-swiper">
-
-          <div class="swiper-wrapper align-items-center">
-
-            <div class="swiper-slide">
-              <img src="@/assets/img/portfolio/app-1.jpg" alt="">
-            </div>
-
-            <div class="swiper-slide">
-              <img src="@/assets/img/portfolio/product-1.jpg" alt="">
-            </div>
-
-            <div class="swiper-slide">
-              <img src="@/assets/img/portfolio/branding-1.jpg" alt="">
-            </div>
-
-            <div class="swiper-slide">
-              <img src="@/assets/img/portfolio/books-1.jpg" alt="">
-            </div>
-
+        <div id="carousel-container1" class="carousel-container">
+          <div id="carousel-wrapper1" class="carousel-wrapper">
+              <div id="carousel-text1" class="carousel-text">
+                <img src="@/assets/img/portfolio/app-1.jpg" alt="">
+              </div>
+              <div id="carousel-text1" class="carousel-text">
+                <img src="@/assets/img/portfolio/product-1.jpg" alt="">
+              </div>
+              <div id="carousel-text1" class="carousel-text">
+                <img src="@/assets/img/portfolio/branding-1.jpg" alt="">
+              </div>
           </div>
-          <div class="swiper-pagination"></div>
+          <div class="pagination">
+              <div id="bullet1" class="bullet active" data-index="0"></div>
+              <div id="bullet1" class="bullet"z data-index="1"></div>
+              <div id="bullet1" class="bullet" data-index="2"></div>
+          </div>
         </div>
       </div>
 
@@ -101,34 +96,31 @@
         </div>
       </div>
       <div class="col-lg-8">
-        <div class="portfolio-details-slider swiper init-swiper">
-
-
-          <div class="swiper-wrapper align-items-center">
-
-            <div class="swiper-slide">
-              <img src="@/assets/img/portfolio/books-1.jpg" alt="">
-            </div>
-
-            <div class="swiper-slide">
-              <img src="@/assets/img/portfolio/branding-1.jpg" alt="">
-            </div>
-            
-            <div class="swiper-slide">
-              <img src="@/assets/img/portfolio/product-1.jpg" alt="">
-            </div>
-
-            <div class="swiper-slide">
-              <img src="@/assets/img/portfolio/app-1.jpg" alt="">
-            </div>
-
-
+        <div id="carousel-container2" class="carousel-container">
+          <div id="carousel-wrapper2" class="carousel-wrapper">
+              <div id="carousel-text2" class="carousel-text">
+                <img src="@/assets/img/portfolio/books-1.jpg" alt="">
+              </div>
+              <div id="carousel-text2" class="carousel-text">
+                <img src="@/assets/img/portfolio/app-1.jpg" alt="">
+              </div>
+              <div id="carousel-text2" class="carousel-text">
+                <img src="@/assets/img/portfolio/product-1.jpg" alt="">
+              </div>
+              <div id="carousel-text2" class="carousel-text">
+                <img src="@/assets/img/portfolio/branding-1.jpg" alt="">
+              </div>
           </div>
-          <div class="swiper-pagination"></div>
+          <div class="pagination">
+              <div id="bullet2" class="bullet active" data-index="0"></div>
+              <div id="bullet2" class="bullet"z data-index="1"></div>
+              <div id="bullet2" class="bullet" data-index="2"></div>
+              <div id="bullet2" class="bullet" data-index="3"></div>
+          </div>
         </div>
-      </div>
     </div>
 
+  </div>
   </div>
 
 </section><!-- /Service Details Section -->
@@ -137,9 +129,123 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
+  const state = ref({
+    wrapper1: null,
+    texts1: null,
+    bullets1: null,
+    index1: 0,
+    wrapper2: null,
+    texts2: null,
+    bullets2: null,
+    index2: 0
+  })
 
+  function updateCarousel1 () {
+    state.value.wrapper1.style.transform = `translateX(-${state.value.index1 * 100}%)`
+    updatePagination1()
+  }
+
+  function updatePagination1 () {
+    state.value.bullets1.forEach(bullet => bullet.classList.remove('active'))
+    state.value.bullets1[state.value.index1].classList.add('active')
+  }
+
+  function updateCarousel2 () {
+    state.value.wrapper2.style.transform = `translateX(-${state.value.index2 * 100}%)`
+    updatePagination2()
+  }
+
+  function updatePagination2 () {
+    state.value.bullets2.forEach(bullet => bullet.classList.remove('active'))
+    state.value.bullets2[state.value.index2].classList.add('active')
+  }
+
+  onMounted(() => {
+    state.value.wrapper1 = document.querySelector('[id^="carousel-wrapper1"]');
+    state.value.texts1 = document.querySelectorAll('[id^="carousel-text1"]');
+    state.value.bullets1 = document.querySelectorAll('[id^="bullet1"]');
+    setInterval(() => {
+      state.value.index1 = (state.value.index1 === state.value.texts1.length - 1) ? 0 : state.value.index1 + 1;
+      updateCarousel1()
+    }, 3000)
+
+    state.value.wrapper2 = document.querySelector('[id^="carousel-wrapper2"]');
+    state.value.texts2 = document.querySelectorAll('[id^="carousel-text2"]');
+    state.value.bullets2 = document.querySelectorAll('[id^="bullet2"]');
+    setInterval(() => {
+      state.value.index2 = (state.value.index2 === state.value.texts2.length - 1) ? 0 : state.value.index2 + 1;
+      updateCarousel2()
+    }, 3000)
+  })
 </script>
 
 <style lang="scss" scoped>
+        
+        .carousel-container {
+            position: relative;
+            // width: 300px;
+            // height: 100px;
+            overflow: hidden;
+        }
 
+        .carousel-wrapper {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            // border: 1px solid green;
+        }
+
+        .carousel-wrapper img {
+            width: 100%;
+            vertical-align: middle;
+        }
+
+        .carousel-text {
+            min-width: 100%;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: black;
+        }
+
+        .buttons {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            border: 1px solid #3a60fb;
+        }
+        button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: black;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .pagination {
+            position: absolute;
+            bottom: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            // border: 1px solid black;
+        }
+
+        .bullet {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .bullet.active {
+            background-color: white;
+        }
 </style>

@@ -25,6 +25,9 @@ vue lazyloading
 vite api proxy
 json data server
 aws lightsail에 배포
+header menu 고치기
+header menu 클릭 이동
+carousal 
 
 
 index.html 해서 nodejs express 테스트

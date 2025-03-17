@@ -2,7 +2,7 @@
     "viteSvg": "src/assets/vite.svg",
     "assetsVueSvg": "/src/assets/vue.svg",
     "menuList": [
-        { "url": "/", "name": "홈" },
+        { "url": "/#", "name": "홈" },
         { "url": "/#about", "name": "혜봄소개" },
         { 
           "url": "/#services", 

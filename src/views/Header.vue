@@ -11,16 +11,15 @@
 
         <nav id="navmenu" class="navmenu">
           <ul>
-              <li :class="{'dropdown': (menu.dropDown && menu.dropDown.length > 0)}"
-                v-for="menu in menuList" :key="menu.url">
+              <li v-for="menu in menuList" :key="menu.url" :class="{'dropdown': (menu.dropDown && menu.dropDown.length > 0)}" @click="onClickNavmenu">
                 <!-- <a -->
-                <a v-if="menu.dropDown === null || menu.dropDown === undefined || menu.dropDown === ''"
+                <a v-if="menu.dropDown === null || menu.dropDown === undefined"
                   :href="menu.url" :class="menu.url === '#hero' ? 'active' : ''">
                   {{ menu.name }}
                 </a>
                 <a v-else :href="menu.url">
                   <span>{{ menu.name }}</span>
-                  <i class="bi bi-chevron-down toggle-dropdown"></i>
+                  <i @click.stop.prevent="onClickDropDown" class="bi bi-chevron-down toggle-dropdown"></i>
                 </a>
                 <ul>
                   <li v-for="drop in menu.dropDown" :key="drop.url">
@@ -29,31 +28,6 @@
                 </ul>
               </li>
             
-            
-            <!-- <li><a href="#hero" class="active">홈</a></li>
-            <li><a href="#about">혜봄소개</a></li>
-            <li class="dropdown">
-              <a href="#services">
-                <span>주요업무</span>
-                <i class="bi bi-chevron-down toggle-dropdown"></i>
-              </a>
-              <ul>
-                <li><a href="service-details.html">사업자 재무상담</a></li>
-                <li><a href="service-details.html#service-details-2">재산 & 세무조사</a></li>
-              </ul>
-            </li>
-            <li><a href="#team">세무사소개</a></li>
-            <li class="dropdown"><a href="#price"><span>수수료안내</span> <i
-                  class="bi bi-chevron-down toggle-dropdown"></i></a>
-              <ul>
-                <li><a href="price-details.html">사업자 세무회계</a></li>
-                <li><a href="price-details.html#price-2">재산제세</a></li>
-              </ul>
-            </li>
-            <li><a href="#testimonials">수임후기</a></li>
-            <li><a href="#blog">블로그</a></li>
-            <li><a href="#contact">오시는길</a></li> -->
-          
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
@@ -65,8 +39,11 @@
 </template>
 
 <script setup>
-import { defineProps, onMounted } from 'vue';
+import { ref, defineProps, onMounted, computed } from 'vue';
 import { useRouter } from 'vue-router';
+const state = ref({
+  mobileNavToggleBtn: null
+});
 
 const router = useRouter();
 
@@ -76,50 +53,72 @@ const props = defineProps({
   }
 })
 
+const menuNormalList = computed(() => {
+  return props.menuList.filter(one => one.dropDown === null || one.dropDown === undefined)
+})
+
+const menuDropdownList = computed(() => {
+  return props.menuList.filter(one => one.dropDown !== null && one.dropDown !== undefined && Array.isArray(one.dropDown) && one.dropDown.length > 0)
+})
+
 function onClickRouting (event) {
   event.preventDefault();
   router.push('/')
 }
-// /**
-//  * Mobile nav toggle
-//  */
-//  function mobileNavToogle() {
-//   document.querySelector('body').classList.toggle('mobile-nav-active');
-//   if (state.value.mobileNavToggleBtn) {
-//     state.value.mobileNavToggleBtn.classList.toggle('bi-list');
-//     state.value.mobileNavToggleBtn.classList.toggle('bi-x');
-//   }
-// }
+/**
+ * Mobile nav toggle
+ */
+ function mobileNavToogle() {
+  document.querySelector('body').classList.toggle('mobile-nav-active');
+  if (state.value.mobileNavToggleBtn) {
+    state.value.mobileNavToggleBtn.classList.toggle('bi-list');
+    state.value.mobileNavToggleBtn.classList.toggle('bi-x');
+  }
+}
+
+function onClickDropDown(event) {
+  const parentNodes = document.querySelectorAll('.navmenu .toggle-dropdown')
+  event.target.parentNode.classList.toggle('active');
+  event.target.parentNode.nextElementSibling.classList.toggle('dropdown-active');
+}
+
+function onClickNavmenu() {
+  if (document.querySelector('.mobile-nav-active')) {
+    mobileNavToogle();
+  }
+}
 
 onMounted(() => {
     /**
    * Mobile nav toggle
    */
-  //  state.value.mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
-  // state.value.mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
+    state.value.mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
+    state.value.mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
 
-//   /**
-//    * Hide mobile nav on same-page/hash links
-//    */
-//   document.querySelectorAll('#navmenu a').forEach(navmenu => {
-//     navmenu.addEventListener('click', () => {
-//       if (document.querySelector('.mobile-nav-active')) {
-//         mobileNavToogle();
-//       }
-//     });
-//   });
+  /**
+   * Hide mobile nav on same-page/hash links
+   */
+  document.querySelectorAll('#navmenu a').forEach(navmenu => {
+    navmenu.addEventListener('click', () => {
+      if (document.querySelector('.mobile-nav-active')) {
+        mobileNavToogle();
+      }
+    });
+  });
 
-//   /**
-//    * Toggle mobile nav dropdowns
-//    */
-//   document.querySelectorAll('.navmenu .toggle-dropdown').forEach(navmenu => {
-//     navmenu.addEventListener('click', function (e) {
-//       e.preventDefault();
-//       this.parentNode.classList.toggle('active');
-//       this.parentNode.nextElementSibling.classList.toggle('dropdown-active');
-//       e.stopImmediatePropagation();
-//     });
-//   });
+  /**
+   * Toggle mobile nav dropdowns
+   */
+  // document.querySelectorAll('.navmenu .toggle-dropdown').forEach(navmenu => {
+  //   console.log('jsdno0 debug2-1-1 navmenu', navmenu);
+  //   navmenu.addEventListener('click', function (e) {
+  //     e.preventDefault();
+  //     console.log('jsdno0 debug2-2 this.parentNode', this.parentNode);
+  //     this.parentNode.classList.toggle('active');
+  //     this.parentNode.nextElementSibling.classList.toggle('dropdown-active');
+  //     e.stopImmediatePropagation();
+  //   });
+  // });
 })
 </script>
 

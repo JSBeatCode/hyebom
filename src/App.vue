@@ -83,7 +83,7 @@ const refSrcData = ref(srcData);
 
 const state = ref({
     // const openModalButton = document.getElementById('openModal');
-    mobileNavToggleBtn: null,
+    // mobileNavToggleBtn: null,
     closeModalButton: null,
     modal: null,
     modalHeader: null,
@@ -150,16 +150,16 @@ const globalVar = instance?.appContext.config.globalProperties;
 
 /********* initializing script start **************/
 
-/**
- * Mobile nav toggle
- */
-function mobileNavToogle() {
-  document.querySelector('body').classList.toggle('mobile-nav-active');
-  if (state.value.mobileNavToggleBtn) {
-    state.value.mobileNavToggleBtn.classList.toggle('bi-list');
-    state.value.mobileNavToggleBtn.classList.toggle('bi-x');
-  }
-}
+// /**
+//  * Mobile nav toggle
+//  */
+// function mobileNavToogle() {
+//   document.querySelector('body').classList.toggle('mobile-nav-active');
+//   if (state.value.mobileNavToggleBtn) {
+//     state.value.mobileNavToggleBtn.classList.toggle('bi-list');
+//     state.value.mobileNavToggleBtn.classList.toggle('bi-x');
+//   }
+// }
 
 /**
  * Apply .scrolled class to the body as the page is scrolled down
@@ -229,7 +229,7 @@ function navmenuScrollspy(navmenulinks) {
 }
 
 onUpdated(() => {
-  console.log('jsdno0 debug3-1 updated');
+  // console.log('jsdno0 debug3-1 updated');
 })
 /********* initializing script end **************/
 onMounted(() => {
@@ -262,36 +262,36 @@ onMounted(() => {
   // window.addEventListener('load', toggleScrolled);
   toggleScrolled()
 
-  /**
-   * Mobile nav toggle
-   */
-  state.value.mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
-  state.value.mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
+  // /**
+  //  * Mobile nav toggle
+  //  */
+  // state.value.mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
+  // state.value.mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
 
-  /**
-   * Hide mobile nav on same-page/hash links
-   */
-  document.querySelectorAll('#navmenu a').forEach(navmenu => {
-    console.log('jsdno0 debug2-1 navmenu', navmenu);
-    navmenu.addEventListener('click', () => {
-      if (document.querySelector('.mobile-nav-active')) {
-        mobileNavToogle();
-      }
-    });
-  });
+  // /**
+  //  * Hide mobile nav on same-page/hash links
+  //  */
+  // document.querySelectorAll('#navmenu a').forEach(navmenu => {
+  //   console.log('jsdno0 debug2-1 navmenu', navmenu);
+  //   navmenu.addEventListener('click', () => {
+  //     if (document.querySelector('.mobile-nav-active')) {
+  //       mobileNavToogle();
+  //     }
+  //   });
+  // });
 
-  /**
-   * Toggle mobile nav dropdowns
-   */
-  document.querySelectorAll('.navmenu .toggle-dropdown').forEach(navmenu => {
-    console.log('jsdno0 debug1-1 navmenu', navmenu);
-    navmenu.addEventListener('click', function (e) {
-      e.preventDefault();
-      this.parentNode.classList.toggle('active');
-      this.parentNode.nextElementSibling.classList.toggle('dropdown-active');
-      e.stopImmediatePropagation();
-    });
-  });
+  // /**
+  //  * Toggle mobile nav dropdowns
+  //  */
+  // document.querySelectorAll('.navmenu .toggle-dropdown').forEach(navmenu => {
+  //   console.log('jsdno0 debug1-1 navmenu', navmenu);
+  //   navmenu.addEventListener('click', function (e) {
+  //     e.preventDefault();
+  //     this.parentNode.classList.toggle('active');
+  //     this.parentNode.nextElementSibling.classList.toggle('dropdown-active');
+  //     e.stopImmediatePropagation();
+  //   });
+  // });
 
   /**
    * Preloader
