@@ -18,8 +18,9 @@ const routes = [
         // }
     },
     {
-        path: '/prices',
-        component: Prices
+        path: '/prices/:id',
+        component: Prices,
+        name: 'Prices'
     }
 ]
 
@@ -27,7 +28,14 @@ const router = createRouter({
     history: createWebHistory(),
     routes,
     scrollBehavior(to, from, savedPosition) {
+        console.log('to.hash: ', to.hash);
         console.log('savedPosition: ', savedPosition);
+        // if (to.hash) {
+        //     return {
+        //         el: to.hash,
+        //         behavior: 'smooth',
+        //     };
+        // } else 
         if (savedPosition) {
             return savedPosition
         } else {

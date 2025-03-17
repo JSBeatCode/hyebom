@@ -129,7 +129,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { ref, onMounted, nextTick, watch } from 'vue'
   const state = ref({
     wrapper1: null,
     texts1: null,
@@ -140,6 +141,9 @@ import { ref, onMounted } from 'vue'
     bullets2: null,
     index2: 0
   })
+
+  const route = useRoute();
+  const router = useRouter();
 
   function updateCarousel1 () {
     state.value.wrapper1.style.transform = `translateX(-${state.value.index1 * 100}%)`
@@ -161,7 +165,35 @@ import { ref, onMounted } from 'vue'
     state.value.bullets2[state.value.index2].classList.add('active')
   }
 
+  function scrollToSection () {
+    console.log('scrollToSection', route.hash);
+    if (route.hash) {
+      nextTick(() => {
+        const element = document.querySelector(route.hash)
+        console.log('element', element);
+        if (element) {
+          console.log('element', element);
+          element.scrollIntoView({ behavior: 'smooth' })
+        }
+      })
+    }
+  }
+
+  watch(route, (newVal, oldVal) => {
+    let scrollTimeout = setTimeout(() => {
+     scrollToSection();
+     clearTimeout(scrollTimeout)
+    }, 100)
+  })
+
   onMounted(() => {
+    
+    let scrollTimeout = setTimeout(() => {
+      scrollToSection();
+      clearTimeout(scrollTimeout)
+    }, 100)
+    
+
     state.value.wrapper1 = document.querySelector('[id^="carousel-wrapper1"]');
     state.value.texts1 = document.querySelectorAll('[id^="carousel-text1"]');
     state.value.bullets1 = document.querySelectorAll('[id^="bullet1"]');

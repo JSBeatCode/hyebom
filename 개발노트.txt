@@ -16,18 +16,18 @@ carousel
 id, class 명 정리
 
 -- front 기술 할일 
-package.json 
+O package.json 
 	vite에서 npm run build 할때 build 스크립트 방법
 	npm-run-all 로 build와 deploy 둘다
-vue components
-vue router
+O vue components
+O vue router
 vue lazyloading
-vite api proxy
+O vite api proxy
 json data server
 aws lightsail에 배포
-header menu 고치기
+O header menu 고치기
 header menu 클릭 이동
-carousal 
+O carousal 
 
 
 index.html 해서 nodejs express 테스트

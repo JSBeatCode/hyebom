@@ -90,58 +90,75 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
-onMounted(() => {
-      console.log('on load');
-      console.log(window.location.href);
-      if (String(window.location.href).lastIndexOf('#') > -1) {
-        const checkParams = String(window.location.href).substring(String(window.location.href).lastIndexOf('#') + 1) 
-        console.log('checkParams: ', checkParams);
-        if (checkParams && checkParams.lastIndexOf('-') > -1) {
-          
-          const svcNum = Number(checkParams.substring(checkParams.lastIndexOf('-') + 1))
-          console.log('svcNum', svcNum);
-          showPrice(svcNum)
-        }
-      }
+import { useRoute } from 'vue-router';
+import { onMounted, ref, watch } from 'vue';
 
-      
-    })
-    function showPrice(svcNum) {
-      // const serviceElements = document.querySelectorAll(`div[id^="service-"]`);
-      const priceElements = Array.from(document.querySelectorAll(`div[id^="price-"]`))
-      const priceButtonElements = Array.from(document.querySelectorAll(`span[id^="price-button-"]`))
-      console.log('priceButtonElements: ', priceButtonElements);
-      console.log('svcNum: ', svcNum);
-      if (priceButtonElements.length === priceElements.length) {
-        for (let i = 0; i < priceElements.length; i++) {
-          if (priceElements[i].id === ('price-' + svcNum)) {
-            priceElements[i].classList.remove('hiddenDisplay');
-            // priceElements[i].classList.add('fade-in');
-            /*
-            priceElements[i].style.transform = 'translateX(-40%)';
-            priceElements[i].style.transition = 'transition: all 0.5s;';
-            priceElements[i].style.transform = 'translateX(0%)';
-            priceElements[i].style.display = '';
-            */
-          } else {
-            // priceElements[i].classList.remove('fade-in');
-            priceElements[i].classList.add('hiddenDisplay');
-            /*
-            priceElements[i].style.display = 'none'
-            */
-          }
-          if (priceButtonElements[i].id === ('price-button-' + svcNum)) {
-            priceButtonElements[i].classList.remove('active');
-            priceButtonElements[i].classList.add('active');
-          } else {
-            priceButtonElements[i].classList.remove('active');
-          }
-        }
+const route = useRoute();
+const priceId = ref(route.params.id);
+
+function showPrice(svcNum) {
+  // const serviceElements = document.querySelectorAll(`div[id^="service-"]`);
+  const priceElements = Array.from(document.querySelectorAll(`div[id^="price-"]`))
+  const priceButtonElements = Array.from(document.querySelectorAll(`span[id^="price-button-"]`))
+  console.log('priceButtonElements: ', priceButtonElements);
+  console.log('svcNum: ', svcNum);
+  if (priceButtonElements.length === priceElements.length) {
+    for (let i = 0; i < priceElements.length; i++) {
+      if (priceElements[i].id === ('price-' + svcNum)) {
+        priceElements[i].classList.remove('hiddenDisplay');
+        // priceElements[i].classList.add('fade-in');
+        /*
+        priceElements[i].style.transform = 'translateX(-40%)';
+        priceElements[i].style.transition = 'transition: all 0.5s;';
+        priceElements[i].style.transform = 'translateX(0%)';
+        priceElements[i].style.display = '';
+        */
+      } else {
+        // priceElements[i].classList.remove('fade-in');
+        priceElements[i].classList.add('hiddenDisplay');
+        /*
+        priceElements[i].style.display = 'none'
+        */
       }
-      
-      
+      if (priceButtonElements[i].id === ('price-button-' + svcNum)) {
+        priceButtonElements[i].classList.remove('active');
+        priceButtonElements[i].classList.add('active');
+      } else {
+        priceButtonElements[i].classList.remove('active');
+      }
     }
+  }
+}
+
+watch(() => route.params.id, (newId) => {
+  priceId.value = newId
+  showPrice(Number(priceId.value))
+})
+
+onMounted(() => {
+  if (priceId !== null 
+  && priceId !== undefined 
+  && priceId.value !== null 
+  && priceId.value !== undefined 
+  && /^[0-9]+$/.test(priceId.value)
+) {
+    showPrice(Number(priceId.value))
+  }
+  // console.log('on load');
+  // console.log(window.location.href);
+  // if (String(window.location.href).lastIndexOf('#') > -1) {
+  //   const checkParams = String(window.location.href).substring(String(window.location.href).lastIndexOf('#') + 1)
+  //   console.log('checkParams: ', checkParams);
+  //   if (checkParams && checkParams.lastIndexOf('-') > -1) {
+
+  //     const svcNum = Number(checkParams.substring(checkParams.lastIndexOf('-') + 1))
+  //     console.log('svcNum', svcNum);
+  //     showPrice(svcNum)
+  //   }
+  // }
+
+})
+
 </script>
 
 <style lang="scss" scoped>

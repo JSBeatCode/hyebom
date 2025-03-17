@@ -17,13 +17,14 @@
                   :href="menu.url" :class="menu.url === '#hero' ? 'active' : ''">
                   {{ menu.name }}
                 </a>
-                <a v-else :href="menu.url">
+                <a v-else :href="menu.url" id="dropDownMenu">
                   <span>{{ menu.name }}</span>
                   <i @click.stop.prevent="onClickDropDown" class="bi bi-chevron-down toggle-dropdown"></i>
                 </a>
                 <ul>
-                  <li v-for="drop in menu.dropDown" :key="drop.url">
-                    <router-link :to="drop.url">{{ drop.name }}</router-link>
+                  <li v-for="drop in menu.dropDown" :key="drop.url" @click.stop.prevent="(event) => { onClickDropRoute(event, drop.url) }">
+                    <a href="#">{{ drop.name }}</a>
+                    <!-- <router-link :to="drop.url">{{ drop.name }}</router-link> -->
                   </li>
                 </ul>
               </li>
@@ -62,13 +63,12 @@ const menuDropdownList = computed(() => {
 })
 
 function onClickRouting (event) {
-  event.preventDefault();
   router.push('/')
 }
 /**
  * Mobile nav toggle
  */
- function mobileNavToogle() {
+ function mobileNavToogle () {
   document.querySelector('body').classList.toggle('mobile-nav-active');
   if (state.value.mobileNavToggleBtn) {
     state.value.mobileNavToggleBtn.classList.toggle('bi-list');
@@ -76,16 +76,25 @@ function onClickRouting (event) {
   }
 }
 
-function onClickDropDown(event) {
-  const parentNodes = document.querySelectorAll('.navmenu .toggle-dropdown')
+function onClickDropDown (event) {
+  const dropDownMenu = document.querySelectorAll('[id^="dropDownMenu"]')
   event.target.parentNode.classList.toggle('active');
   event.target.parentNode.nextElementSibling.classList.toggle('dropdown-active');
 }
 
-function onClickNavmenu() {
+function onClickNavmenu () {
   if (document.querySelector('.mobile-nav-active')) {
     mobileNavToogle();
   }
+}
+
+function onClickDropRoute (event, url) {
+  for (let i = 0; i < dropDownMenu.length; i++) {
+    dropDownMenu[i].classList.remove('active');
+    dropDownMenu[i].nextElementSibling.classList.remove('dropdown-active');
+  }
+  mobileNavToogle()
+  router.push(url)
 }
 
 onMounted(() => {

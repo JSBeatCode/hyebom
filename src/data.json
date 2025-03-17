@@ -17,8 +17,8 @@
           "url": "/#price", 
           "name": "수수료안내",
           "dropDown": [
-              { "url": "/prices", "name": "사업자 세무회계" },
-              { "url": "/prices#price-2", "name": "재산제세" }
+              { "url": "/prices/1", "name": "사업자 세무회계" },
+              { "url": "/prices/2", "name": "재산제세" }
           ]
         },
         { "url": "/#testimonials", "name": "수임후기" },
