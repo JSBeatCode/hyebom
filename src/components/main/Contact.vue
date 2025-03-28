@@ -10,6 +10,9 @@
         <div class="container" data-aos="fade-up" data-aos-delay="100">
 
           <div class="row gy-4">
+            <div id="map" style="width:100%;height:400px;"></div>
+          </div>
+          <div class="row gy-4">
             <div class="col-lg-6">
               <div class="row gy-4">
 
@@ -19,6 +22,10 @@
                     <i class="bi bi-geo-alt"></i>
                     <h3>Address</h3>
                     <p>경기 성남시 분당구 돌마로68, 분당프라자 703-1호</p>
+                    <div class="info-item-extra">
+                      <p><span class="bi bi-info-circle">&nbsp;</span>분당프라자(리지안안과 건물) 7층에 위치</p>
+                      <p><span class="bi bi-info-circle">&nbsp;</span>주차정보 건물 내부 1층~B2층 주차장이용 (주차장 입구는 건물 뒤에 위치, 내방객에 한해 주차 무료)</p>
+                    </div>
                   </div>
                 </div><!-- End Info Item -->
 
@@ -84,6 +91,21 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
+onMounted(() => {
+  const latLang = new naver.maps.LatLng(37.3496426,127.1095151);
+    var mapOptions = {
+      center: latLang,
+      zoom: 16
+  };
+
+  var map = new naver.maps.Map('map', mapOptions);
+
+  new naver.maps.Marker({
+    position: map.getCenter(),
+    map: map
+});
+})
 
 </script>
 

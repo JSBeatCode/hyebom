@@ -26,7 +26,7 @@ O vite api proxy
 json data server
 aws lightsail에 배포
 O header menu 고치기
-header menu 클릭 이동
+O header menu 클릭 이동
 O carousal 
 
 
