@@ -112,7 +112,7 @@ async function changeLoadPath() {
                     let data = await fs.readFile(filePath, 'utf8');
                     
                     // 단어 변경
-                    const updatedData = data.replace(new RegExp('/assets/', 'g'), './assets/');
+                    const updatedData = data.replace(new RegExp('/assets/', 'g'), './');
                     
                     // 변경된 내용 저장
                     await fs.writeFile(filePath, updatedData, 'utf8');
