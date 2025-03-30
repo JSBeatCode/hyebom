@@ -16,6 +16,7 @@
 11. npm run build
 12. dist/index.html, dist/index*.js 에 "/assets/ -> "./assets/ 으로 고치기
 13. dist/assets/vendors를 src/assets/vendors에서 가져와 붙히기
-13. git pages package.json에 정의
-14. npm run deploy
+14. git pages package.json에 정의
+15. git commit push
+16. npm run deploy
 

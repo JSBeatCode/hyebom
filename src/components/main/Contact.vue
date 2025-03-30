@@ -96,7 +96,8 @@ onMounted(() => {
   const latLang = new naver.maps.LatLng(37.3496426,127.1095151);
     var mapOptions = {
       center: latLang,
-      zoom: 16
+      zoom: 16,
+      zoomControl: true, //줌 컨트롤의 표시 여부
   };
 
   var map = new naver.maps.Map('map', mapOptions);

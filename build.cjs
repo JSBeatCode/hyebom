@@ -4,17 +4,20 @@ const dotenv = require('dotenv')
 
 dotenv.config();
 
-console.log(process.env.SRC_ASSETS);
-console.log(process.env.DIST_ASSETS);
+console.log(process.env.SRC_ASSETS_VENDOR);
+console.log(process.env.DIST_ASSETS_VENDOR);
 
-const src = path.join(__dirname, process.env.SRC_ASSETS);
-const dest = path.join(__dirname, process.env.DIST_ASSETS);
+const src = path.join(__dirname, process.env.SRC_ASSETS_VENDOR);
+const dest = path.join(__dirname, process.env.DIST_ASSETS_VENDOR);
+const DIST_ASSETS = path.join(__dirname, process.env.DIST_ASSETS);
+const DIST = path.join(__dirname, process.env.DIST);
+const filePattern = /^index.*\.css$/;
 
-console.log(src);
-console.log(dest);
+console.log('debug1: ', src);
+console.log('debug2: ', dest);
+console.log('debug3: ', DIST_ASSETS);
 
 // nodejs 16이하 재귀함수 버전
-
 async function deleteFolder(folderPath) {
     try {
         await fs.access(folderPath)
@@ -67,8 +70,6 @@ async function copyAssets() {
             await fs.rm(dest, { recursive: true, force: true })
             console.log(`Deleting completed ${dest}`);
         }
-    
-
     } catch (error) {
         console.error('Error deleting');
         console.error(error);
@@ -78,10 +79,65 @@ async function copyAssets() {
     }
 }
 
+async function changeLoadPath() {
+    // index.html 내 /assets -> ./assets
+    const indexFile = path.join(DIST, 'index.html')
+    try {
+        // 파일 읽기
+        let data = await fs.readFile(indexFile, 'utf8');
+        
+        // 단어 변경
+        const updatedData = data.replace(new RegExp('"/assets/', 'g'), '"./assets/');
+        
+        // 변경된 내용 저장
+        await fs.writeFile(indexFile, updatedData, 'utf8');
+        console.log(`${indexFile}이(가) 성공적으로 수정되었습니다.`);
+    } catch (fileError) {
+        console.error(`${indexFile}을(를) 처리하는 중 오류 발생:`, fileError);
+    }
+
+    
+    // css file 내 /assets -> ./assets
+    try {
+        // 디렉토리 내 파일 읽기
+        const files = await fs.readdir(DIST_ASSETS);
+        
+        // 특정 패턴에 맞는 파일 찾기
+        for (const file of files) {
+            if (filePattern.test(file)) {
+                const filePath = path.join(DIST_ASSETS, file);
+                console.log('jsdno0 debug5 filePath: ', filePath);
+                try {
+                    // 파일 읽기
+                    let data = await fs.readFile(filePath, 'utf8');
+                    
+                    // 단어 변경
+                    const updatedData = data.replace(new RegExp('/assets/', 'g'), './assets/');
+                    
+                    // 변경된 내용 저장
+                    await fs.writeFile(filePath, updatedData, 'utf8');
+                    console.log(`${file}이(가) 성공적으로 수정되었습니다.`);
+                } catch (fileError) {
+                    console.error(`${file}을(를) 처리하는 중 오류 발생:`, fileError);
+                }
+            }
+        }
+    } catch (dirError) {
+        console.error('디렉토리를 읽는 중 오류 발생:', dirError);
+    }
+}
+
 async function main() {
     // await deleteFolder();
     // await copyDirectory(src, dest)
+    const args = process.argv.slice(2)
+    console.log('build0: ', args);
     await copyAssets();
+    if (args !== null && args !== undefined && Array.isArray(args) && args.length > 0 ) {
+        if (args[0] === 'git') {
+            await changeLoadPath();
+        }
+    }
 }
 
 main();

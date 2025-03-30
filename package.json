@@ -8,8 +8,10 @@
     "dev": "vite",
     "build": "vite build",
     "build-all": "npm-run-all build-vite build-vendor",
+    "build-all-git": "npm-run-all build-vite build-vendor-git",
     "build-vite": "vite build",
     "build-vendor": "node build.cjs",
+    "build-vendor-git": "node build.cjs git",
     "preview": "vite preview",
     "deploy": "gh-pages -d dist",
     "all": ""
