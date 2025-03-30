@@ -11,7 +11,8 @@ const src = path.join(__dirname, process.env.SRC_ASSETS_VENDOR);
 const dest = path.join(__dirname, process.env.DIST_ASSETS_VENDOR);
 const DIST_ASSETS = path.join(__dirname, process.env.DIST_ASSETS);
 const DIST = path.join(__dirname, process.env.DIST);
-const filePattern = /^index.*\.css$/;
+// const filePattern = /^index.*\.css$/;
+const filePattern = /^index.*\.(css|js)$/;
 
 console.log('debug1: ', src);
 console.log('debug2: ', dest);
