@@ -11,8 +11,8 @@ const src = path.join(__dirname, process.env.SRC_ASSETS_VENDOR);
 const dest = path.join(__dirname, process.env.DIST_ASSETS_VENDOR);
 const DIST_ASSETS = path.join(__dirname, process.env.DIST_ASSETS);
 const DIST = path.join(__dirname, process.env.DIST);
-const filePatternJs = /^index.*\.css$/;
-const filePatternCss = /^index.*\.js$/;
+const filePatternJs = /^index.*\.js$/;
+const filePatternCss = /^index.*\.css$/;
 // const filePattern = /^index.*\.(css|js)$/;
 
 console.log('debug1: ', src);
@@ -105,42 +105,46 @@ async function changeLoadPath() {
         for (const file of files) {
             if (filePatternCss.test(file)) {
                 const filePath = path.join(DIST_ASSETS, file);
-                console.log('jsdno0 debug5 filePath: ', filePath);
+                console.log('jsdno0 debug6 filePath: ', filePath);
                 try {
                     // 파일 읽기
-                    let data = await fs.readFile(filePath, 'utf8');
+                    let dataCss = await fs.readFile(filePath, 'utf8');
                     
                     // 단어 변경
-                    const updatedData = data.replace(new RegExp('/assets/', 'g'), './');
+                    if (dataCss.includes('(/assets/')) {
+                        console.log('jsdno0 debug3');
+                    }
+                    // const updatedData = data.replace(new RegExp('\(/assets/', 'g'), '(./');
+                    const updatedData = dataCss.replaceAll('(/assets/', '(./');
                     
                     // 변경된 내용 저장
                     await fs.writeFile(filePath, updatedData, 'utf8');
                     console.log(`${file}이(가) 성공적으로 수정되었습니다.`);
                 } catch (fileError) {
                     console.error(`${file}을(를) 처리하는 중 오류 발생:`, fileError);
-                    process.exit(1)
                 }
             } 
             if (filePatternJs.test(file)) {
                 const filePath = path.join(DIST_ASSETS, file);
                 console.log('jsdno0 debug5 filePath: ', filePath);
-                    // 파일 읽기
-                    let data = await fs.readFile(filePath, 'utf8');
-                    
-                    // 단어 변경
-                    const updatedData = data.replace(new RegExp('"/assets/', 'g'), '"./');
-                    
-                    // 변경된 내용 저장
-                    await fs.writeFile(filePath, updatedData, 'utf8');
-                    console.log(`${file}이(가) 성공적으로 수정되었습니다.`);
+                // 파일 읽기
+                let dataJs = await fs.readFile(filePath, 'utf8');
+                
+                if (dataJs.includes('"/assets/')) {
+                    console.log('jsdno0 debug4');
+                }
+                // 단어 변경
+                // const updatedData = data.replace(new RegExp('"/assets/', 'g'), '"./');
+                const updatedData = dataJs.replaceAll('"/assets/', '"./');
+                
+                // 변경된 내용 저장
+                await fs.writeFile(filePath, updatedData, 'utf8');
+                console.log(`${file}이(가) 성공적으로 수정되었습니다.`);
 
             }
         }
     } catch (error) {
         console.error('오류 발생:', error);
-    } finally {
-        console.log('jsdno debug final');
-        process.exit(0)
     }
 }
 
