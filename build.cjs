@@ -11,8 +11,9 @@ const src = path.join(__dirname, process.env.SRC_ASSETS_VENDOR);
 const dest = path.join(__dirname, process.env.DIST_ASSETS_VENDOR);
 const DIST_ASSETS = path.join(__dirname, process.env.DIST_ASSETS);
 const DIST = path.join(__dirname, process.env.DIST);
-// const filePattern = /^index.*\.css$/;
-const filePattern = /^index.*\.(css|js)$/;
+const filePatternJs = /^index.*\.css$/;
+const filePatternCss = /^index.*\.js$/;
+// const filePattern = /^index.*\.(css|js)$/;
 
 console.log('debug1: ', src);
 console.log('debug2: ', dest);
@@ -77,6 +78,7 @@ async function copyAssets() {
     } finally {
         await fs.cp(src, dest, { recursive: true })
         console.log(`Copying completed from ${src} to ${dest}`);
+        process.exit(0)
     }
 }
 
@@ -93,19 +95,15 @@ async function changeLoadPath() {
         // 변경된 내용 저장
         await fs.writeFile(indexFile, updatedData, 'utf8');
         console.log(`${indexFile}이(가) 성공적으로 수정되었습니다.`);
-    } catch (fileError) {
-        console.error(`${indexFile}을(를) 처리하는 중 오류 발생:`, fileError);
-    }
 
     
     // css file 내 /assets -> ./assets
-    try {
         // 디렉토리 내 파일 읽기
         const files = await fs.readdir(DIST_ASSETS);
         
         // 특정 패턴에 맞는 파일 찾기
         for (const file of files) {
-            if (filePattern.test(file)) {
+            if (filePatternCss.test(file)) {
                 const filePath = path.join(DIST_ASSETS, file);
                 console.log('jsdno0 debug5 filePath: ', filePath);
                 try {
@@ -120,11 +118,26 @@ async function changeLoadPath() {
                     console.log(`${file}이(가) 성공적으로 수정되었습니다.`);
                 } catch (fileError) {
                     console.error(`${file}을(를) 처리하는 중 오류 발생:`, fileError);
+                    process.exit(1)
                 }
+            } else if (filePatternJs.test(file)) {
+                const filePath = path.join(DIST_ASSETS, file);
+                console.log('jsdno0 debug5 filePath: ', filePath);
+                    // 파일 읽기
+                    let data = await fs.readFile(filePath, 'utf8');
+                    
+                    // 단어 변경
+                    const updatedData = data.replace(new RegExp('"/assets/', 'g'), '"./');
+                    
+                    // 변경된 내용 저장
+                    await fs.writeFile(filePath, updatedData, 'utf8');
+                    console.log(`${file}이(가) 성공적으로 수정되었습니다.`);
+
             }
         }
-    } catch (dirError) {
-        console.error('디렉토리를 읽는 중 오류 발생:', dirError);
+    } catch (error) {
+        console.error('오류 발생:', error);
+        process.exit(1)
     }
 }
 
