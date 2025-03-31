@@ -78,11 +78,11 @@ async function copyAssets() {
     } finally {
         await fs.cp(src, dest, { recursive: true })
         console.log(`Copying completed from ${src} to ${dest}`);
-        process.exit(0)
     }
 }
 
 async function changeLoadPath() {
+    console.log('changeLoadPath');
     // index.html 내 /assets -> ./assets
     const indexFile = path.join(DIST, 'index.html')
     try {
@@ -120,7 +120,8 @@ async function changeLoadPath() {
                     console.error(`${file}을(를) 처리하는 중 오류 발생:`, fileError);
                     process.exit(1)
                 }
-            } else if (filePatternJs.test(file)) {
+            } 
+            if (filePatternJs.test(file)) {
                 const filePath = path.join(DIST_ASSETS, file);
                 console.log('jsdno0 debug5 filePath: ', filePath);
                     // 파일 읽기
@@ -137,7 +138,9 @@ async function changeLoadPath() {
         }
     } catch (error) {
         console.error('오류 발생:', error);
-        process.exit(1)
+    } finally {
+        console.log('jsdno debug final');
+        process.exit(0)
     }
 }
 
@@ -148,7 +151,9 @@ async function main() {
     console.log('build0: ', args);
     await copyAssets();
     if (args !== null && args !== undefined && Array.isArray(args) && args.length > 0 ) {
+        console.log('jsdno0 debug1');
         if (args[0] === 'git') {
+            console.log('jsdno0 debug2');
             await changeLoadPath();
         }
     }
