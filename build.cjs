@@ -124,7 +124,8 @@ async function changeLoadPath() {
                     console.error(`${file}을(를) 처리하는 중 오류 발생:`, fileError);
                 }
             } 
-            if (filePatternJs.test(file)) {
+            // if (filePatternJs.test(file)) {
+            if (false) {
                 const filePath = path.join(DIST_ASSETS, file);
                 console.log('jsdno0 debug5 filePath: ', filePath);
                 // 파일 읽기
